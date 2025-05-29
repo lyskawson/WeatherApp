@@ -62,6 +62,18 @@ This app integrates with the [OpenWeatherMap API](https://openweathermap.org/api
 
 ---
 
+##  API Key Setup
+
+This app uses the **OpenWeather API** to fetch real-time weather data. To keep your API key secure and **prevent it from being exposed on GitHub**, follow these steps:
+
+### Add your API key to `local.properties`
+
+At the root of your project, open or create the `local.properties` file and add:
+
+```properties
+OPENWEATHER_API_KEY=your_openweather_api_key_here
+```
+
 ## Permissions Required
 
 ```xml
