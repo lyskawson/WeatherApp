@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+const val degree = "\u00b0"
+
 fun getFormattedDate(dt : Number, pattern : String = "dd/MM/yy") : String{
     return SimpleDateFormat(pattern, Locale.getDefault()).format(Date(dt.toLong() * 1000))
 }

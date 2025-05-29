@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,12 +8,24 @@ plugins {
     alias(libs.plugins.kotlin.serializable)
     kotlin("kapt")
 }
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+
+if (localPropertiesFile.exists() && localPropertiesFile.isFile) {
+    localPropertiesFile.inputStream().use { input ->
+        localProperties.load(input)
+    }
+}
+
+val apiKey: String = localProperties.getProperty("OPENWEATHER_API_KEY")
+    ?: throw GradleException("OPENWEATHER_API_KEY is missing from local.properties.")
 
 android {
     namespace = "com.example.weatherapp"
     compileSdk = 35
 
     defaultConfig {
+        buildConfigField("String", "OPENWEATHER_API_KEY", "\"$apiKey\"")
         applicationId = "com.example.weatherapp"
         minSdk = 24
         targetSdk = 35
@@ -39,6 +53,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

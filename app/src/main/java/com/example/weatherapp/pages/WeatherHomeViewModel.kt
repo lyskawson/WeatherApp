@@ -6,11 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.data.ConnectivityRepository
 import com.example.weatherapp.data.CurrentWeather
 import com.example.weatherapp.data.ForecastWeather
 import com.example.weatherapp.data.WeatherRepository
-import com.example.weatherapp.utils.WEATHER_API_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
@@ -24,6 +24,7 @@ class WeatherHomeViewModel @Inject constructor (
     private val connectivityRepository: ConnectivityRepository,
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
+    val apiKey = BuildConfig.OPENWEATHER_API_KEY
     var uiState: WeatherHomeUiState by mutableStateOf(WeatherHomeUiState.Loading)
     private var latitude = 0.0
     private var longitude = 0.0
@@ -52,24 +53,14 @@ class WeatherHomeViewModel @Inject constructor (
     }
 
     private suspend fun getCurrentData() : CurrentWeather {
-        val endUrl = "weather?lat=$latitude&lon=$longitude&appid=$WEATHER_API_KEY&units=metric";
+        val endUrl = "weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric";
         return weatherRepository.getCurrentWeather(endUrl)
     }
 
     private suspend fun getForecastData() : ForecastWeather {
-        val endUrl = "forecast?lat=$latitude&lon=$longitude&appid=$WEATHER_API_KEY&units=metric";
+        val endUrl = "forecast?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric";
         return weatherRepository.getForecastWeather(endUrl)
     }
 
-    /*companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as Application)
-                val connectivityManager = application.getSystemService(ConnectivityManager::class.java)
-                WeatherHomeViewModel(
-                    connectivityRepository = DefaultConnectivityRepository(connectivityManager)
-                )
-            }
-        }
-    }*/
+
 }

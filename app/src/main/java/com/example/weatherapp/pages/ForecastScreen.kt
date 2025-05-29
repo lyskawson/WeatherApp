@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,7 +76,6 @@ fun ForecastWeatherContent(
             modifier = Modifier.padding(vertical = 16.dp)
         )
         LazyColumn(
-            // verticalArrangement = Arrangement.spacedBy(0.dp), // Let items define their spacing or dividers
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
             groupedForecast.forEach { (day, itemsOnDay) ->
@@ -83,16 +83,19 @@ fun ForecastWeatherContent(
                     Text(
                         text = day,
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold, color = Color.White),
-                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp) // Added top padding
+                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                     )
                     Divider(color = Color.White.copy(alpha = 0.3f), thickness = 1.dp, modifier = Modifier.padding(bottom = 8.dp))
                 }
 
                 items(itemsOnDay, key = { item -> item.dtTxt ?: item.dt.toString() }) { forecastItem ->
                     ForecastWeatherListItem(item = forecastItem)
-                    // Add a divider between items within the same day, but not after the last one
                     if (itemsOnDay.last() != forecastItem) {
-                        Divider(color = Color.White.copy(alpha = 0.15f), thickness = 1.dp, modifier = Modifier.padding(horizontal = 8.dp))
+                        HorizontalDivider(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            thickness = 1.dp,
+                            color = Color.White.copy(alpha = 0.15f)
+                        )
                     }
                 }
             }
@@ -104,17 +107,17 @@ fun ForecastWeatherContent(
 @Composable
 fun ForecastWeatherListItem(
     item: ForecastWeather.ForecastItem,
-    modifier: Modifier = Modifier // Modifier is now for the Row itself
+    modifier: Modifier = Modifier
 ) {
-    // Removed the Card, the Row is now the top-level composable for the item
+
     Row(
-        modifier = modifier // Apply any passed modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp, horizontal = 8.dp), // Padding for the content within the row
+            .padding(vertical = 12.dp, horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // Left side: Time and Description
+
         Column(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.weight(1.8f)
@@ -131,7 +134,7 @@ fun ForecastWeatherListItem(
             )
         }
 
-        // Middle: Weather Icon
+
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(getIconUrl(item.weather?.firstOrNull()?.icon ?: ""))
@@ -143,7 +146,6 @@ fun ForecastWeatherListItem(
                 .weight(0.8f)
         )
 
-        // Right side: Temperature and "Feels like"
         Column(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center,

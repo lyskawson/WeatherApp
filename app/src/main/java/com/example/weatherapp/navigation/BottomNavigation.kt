@@ -27,10 +27,9 @@ data class BottomNavItem(
     val label: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
-    val route: AppScreenRoute // Using the interface
+    val route: AppScreenRoute
 )
 
-// List of items remains the same
 val bottomNavItems = listOf(
     BottomNavItem(
         label = "Home",
@@ -68,7 +67,7 @@ fun AppBottomNavigationBar(
             NavigationBarItem(
                 selected = isSelected,
                 onClick = {
-                    navController.navigate(item.route) { // Type-safe navigation
+                    navController.navigate(item.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
@@ -85,7 +84,7 @@ fun AppBottomNavigationBar(
                 label = { Text(item.label) },
                 alwaysShowLabel = true,
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.White,// Example
+                    selectedIconColor = Color.White,
                     unselectedIconColor = Color.LightGray,
                     indicatorColor = Color.Transparent
 
