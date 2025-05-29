@@ -1,6 +1,9 @@
 # Weather App
 
-![App Preview](https://imgur.com/a/3bD7rk2)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3fe91535-c7dc-4811-89bf-429b83f4c4ef" width="300"/>
+</p>
 
 A sleek and modern weather app built with **Jetpack Compose**, providing real-time weather updates and a 5-day forecast using the **OpenWeather API**.
 
