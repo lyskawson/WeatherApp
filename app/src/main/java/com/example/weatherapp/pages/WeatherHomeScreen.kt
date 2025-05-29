@@ -238,40 +238,6 @@ fun ErrorSection( // Kept ErrorSection, ensure text color is visible
     }
 }
 
-//
-//@Composable
-//fun ErrorSection(
-//    message: String,
-//    onRefresh: () -> Unit,
-//    modifier: Modifier = Modifier) {
-//    Column {
-//        Text(message)
-//        Spacer(modifier = Modifier.height(8.dp))
-//        IconButton(
-//            onClick = onRefresh,
-//            modifier = Modifier.align(Alignment.CenterHorizontally)
-//        ) {
-//            Icon(Icons.Default.Refresh, contentDescription = null, tint = Color.White)
-//        }
-//    }
-//}
-
-@Composable
-fun WeatherSection(
-    weather: Weather,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier.padding(8.dp)
-    ) {
-        CurrentWeatherSection(
-            currentWeather = weather.currentWeather,
-            modifier = Modifier.weight(1f)
-        )
-        //ForecastWeatherSection(forecastItems = weather.forecastWeather.list!!)
-
-    }
-}
 
 @Composable
 fun CurrentWeatherSection(
@@ -339,48 +305,3 @@ fun CurrentWeatherSection(
     }
 }
 
-//@Composable
-//fun ForecastWeatherSection(
-//    forecastItems: List<ForecastWeather.ForecastItem?>,
-//    modifier: Modifier = Modifier
-//) {
-//    LazyRow(
-//        horizontalArrangement = Arrangement.spacedBy(6.dp)
-//    ) {
-//        items(forecastItems.size) {index ->
-//            ForecastWeatherItem(forecastItems[index]!!)
-//        }
-//    }
-//}
-//
-//@Composable
-//fun ForecastWeatherItem(
-//    item: ForecastWeather.ForecastItem,
-//    modifier: Modifier = Modifier) {
-//    Card(
-//        colors = CardDefaults.cardColors(containerColor = Color.Black.copy(alpha = 0.5f)),
-//        modifier = modifier
-//    ) {
-//        Column(
-//            modifier = Modifier.padding(8.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.spacedBy(4.dp)
-//        ) {
-//            Text(getFormattedDate(item.dt!!, pattern = "EEE"), style = MaterialTheme.typography.titleMedium)
-//            Text(getFormattedDate(item.dt, pattern = "HH:mm"), style = MaterialTheme.typography.titleMedium)
-//            Spacer(modifier = Modifier.height(10.dp))
-//            AsyncImage(
-//                model = ImageRequest.Builder(LocalContext.current)
-//                    .data(getIconUrl(item.weather?.get(0)!!.icon!!))
-//                    .crossfade(true)
-//                    .build(),
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .size(40.dp)
-//                    .padding(top = 4.dp, bottom = 4.dp)
-//            )
-//            Spacer(modifier = Modifier.height(10.dp))
-//            Text("${item.main?.temp?.toInt()}$degree", style = MaterialTheme.typography.titleMedium)
-//        }
-//    }
-//}
